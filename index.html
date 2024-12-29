@@ -3,52 +3,73 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BMI Calculator</title>
+  <title>Stylish BMI Calculator</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
+      background: linear-gradient(135deg, #8e44ad, #3498db);
+      color: #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      background: linear-gradient(to bottom, #f0f8ff, #87cefa);
     }
 
     h1 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #333;
+      font-size: 2.5em;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     .bmi-calculator {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      background: rgba(255, 255, 255, 0.2);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
       width: 90%;
       max-width: 400px;
     }
 
-    .bmi-calculator label {
+    label {
       display: block;
       margin-bottom: 10px;
       font-weight: bold;
+      color: #fff;
     }
 
-    .bmi-calculator input {
+    input {
       width: 100%;
       padding: 10px;
       margin-bottom: 15px;
-      border: 1px solid #ccc;
+      border: 1px solid #ddd;
       border-radius: 5px;
+      font-size: 1em;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: background 0.3s ease-in-out;
+    }
+
+    button:hover {
+      background: #2980b9;
     }
 
     .bmi-result {
       text-align: center;
       margin: 20px 0;
+      font-size: 1.5em;
+      font-weight: bold;
     }
 
     .bmi-clock {
@@ -56,9 +77,10 @@
       margin: 20px auto;
       width: 200px;
       height: 200px;
-      border: 5px solid #4caf50;
+      border: 5px solid #fff;
       border-radius: 50%;
       background: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -66,8 +88,8 @@
 
     .bmi-clock .needle {
       position: absolute;
-      width: 2px;
-      height: 80px;
+      width: 3px;
+      height: 90px;
       background: red;
       transform-origin: bottom center;
       transition: transform 0.5s ease-out;
@@ -75,6 +97,7 @@
 
     .bmi-slabs {
       text-align: center;
+      margin-top: 20px;
     }
 
     .bmi-slabs table {
@@ -82,15 +105,14 @@
       border-collapse: collapse;
     }
 
-    .bmi-slabs th,
-    .bmi-slabs td {
-      border: 1px solid #ccc;
+    .bmi-slabs th, .bmi-slabs td {
+      border: 1px solid #fff;
       padding: 10px;
+      color: #fff;
     }
 
     .bmi-slabs th {
-      background: #4caf50;
-      color: white;
+      background: rgba(255, 255, 255, 0.2);
     }
 
     @media (max-width: 480px) {
@@ -100,19 +122,19 @@
       }
 
       .bmi-clock .needle {
-        height: 60px;
+        height: 70px;
       }
     }
   </style>
 </head>
 <body>
-  <h1>BMI Calculator</h1>
+  <h1>Stylish BMI Calculator</h1>
   <div class="bmi-calculator">
     <label for="weight">Weight (kg):</label>
     <input type="number" id="weight" placeholder="Enter your weight">
-    
-    <label for="height">Height (m):</label>
-    <input type="number" id="height" placeholder="Enter your height">
+
+    <label for="height">Height (cm):</label>
+    <input type="number" id="height" placeholder="Enter your height in cm">
 
     <button onclick="calculateBMI()">Calculate BMI</button>
 
@@ -158,14 +180,15 @@
   <script>
     function calculateBMI() {
       const weight = parseFloat(document.getElementById('weight').value);
-      const height = parseFloat(document.getElementById('height').value);
+      const heightCm = parseFloat(document.getElementById('height').value);
 
-      if (!weight || !height || weight <= 0 || height <= 0) {
+      if (!weight || !heightCm || weight <= 0 || heightCm <= 0) {
         alert('Please enter valid values for weight and height.');
         return;
       }
 
-      const bmi = (weight / (height * height)).toFixed(1);
+      const heightM = heightCm / 100; // Convert height to meters
+      const bmi = (weight / (heightM * heightM)).toFixed(1);
       document.getElementById('bmi-value').textContent = bmi;
 
       // Update clock needle
